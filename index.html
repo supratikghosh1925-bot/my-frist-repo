@@ -5,97 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Welcome</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    min-height:100vh;display:flex;align-items:center;justify-content:center;
-    font-family:Arial,sans-serif;color:#fff;text-align:center;overflow:hidden;
-    background:linear-gradient(-45deg,#0f2027,#2c5364,#6a11cb,#ff0080);
-    background-size:400% 400%;animation:bg 12s ease infinite;
-  }
-  @keyframes bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:#05010f;color:#fff;font-family:'Segoe UI',Arial,sans-serif;
+  overflow:hidden;text-align:center;
+}
+canvas{position:fixed;inset:0;z-index:0}
 
-  .bubble{
-    position:absolute;bottom:-60px;border-radius:50%;
-    background:rgba(255,255,255,.15);animation:rise linear infinite;
-  }
-  @keyframes rise{to{transform:translateY(-120vh);opacity:0}}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.55;z-index:0;animation:float 14s ease-in-out infinite alternate}
+.o1{width:300px;height:300px;background:#7c3aed;top:-80px;left:-80px}
+.o2{width:280px;height:280px;background:#ff0080;bottom:-80px;right:-60px;animation-delay:-5s}
+.o3{width:220px;height:220px;background:#00e5ff;top:40%;left:55%;animation-delay:-9s}
+@keyframes float{to{transform:translate(60px,-50px) scale(1.25)}}
 
-  .card{
-    position:relative;z-index:2;padding:40px 25px;width:90%;max-width:480px;
-    background:rgba(255,255,255,.1);backdrop-filter:blur(12px);
-    border:1px solid rgba(255,255,255,.25);border-radius:24px;
-    box-shadow:0 10px 40px rgba(0,0,0,.35);
-    animation:pop 1.2s ease both;
-  }
-  @keyframes pop{from{opacity:0;transform:translateY(40px) scale(.9)}to{opacity:1;transform:none}}
+.card{
+  position:relative;z-index:2;width:90%;max-width:440px;padding:42px 26px;
+  background:rgba(255,255,255,.07);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.2);border-radius:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 0 30px rgba(255,255,255,.05);
+  transition:transform .15s ease-out;
+  animation:enter 1.1s cubic-bezier(.2,.9,.3,1.2) both;
+}
+@keyframes enter{from{opacity:0;transform:translateY(60px) scale(.85)}to{opacity:1}}
 
-  h1{
-    font-size:2.4rem;margin-bottom:10px;
-    animation:glow 2s ease-in-out infinite alternate;
-  }
-  @keyframes glow{
-    from{text-shadow:0 0 8px #fff,0 0 16px #ff0080}
-    to{text-shadow:0 0 16px #fff,0 0 32px #6a11cb}
-  }
+.badge{
+  display:inline-block;padding:6px 16px;border-radius:30px;font-size:.85rem;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  margin-bottom:18px;
+}
+h1{
+  font-size:2.7rem;font-weight:800;margin-bottom:6px;
+  background:linear-gradient(90deg,#00e5ff,#a78bfa,#ff0080,#00e5ff);
+  background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 5s linear infinite;
+}
+@keyframes shine{to{background-position:300% 0}}
+.sub{color:#cfc8ff;font-size:.95rem;margin-bottom:6px}
+.typing{font-size:1.15rem;min-height:32px;margin:14px 0 26px;color:#fff}
+.typing span{border-right:2px solid #00e5ff;padding-right:3px;animation:blink .7s infinite}
+@keyframes blink{50%{border-color:transparent}}
 
-  .typing{
-    font-size:1.1rem;min-height:30px;margin:15px 0 25px;color:#e8e8ff;
-  }
-  .typing span{border-right:2px solid #fff;animation:blink .7s infinite}
-  @keyframes blink{50%{border-color:transparent}}
+.btn{
+  position:relative;overflow:hidden;border:none;cursor:pointer;color:#fff;
+  padding:15px 38px;border-radius:50px;font-size:1rem;font-weight:700;
+  background:linear-gradient(45deg,#ff0080,#7c3aed,#00e5ff);
+  background-size:200% 200%;animation:grad 4s ease infinite,pulse 2.2s infinite;
+  box-shadow:0 0 25px rgba(255,0,128,.55);
+}
+.btn::after{
+  content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
+  animation:sweep 3s infinite;
+}
+@keyframes sweep{to{left:160%}}
+@keyframes grad{50%{background-position:100% 50%}}
+@keyframes pulse{50%{transform:scale(1.06)}}
 
-  .btn{
-    position:relative;overflow:hidden;display:inline-block;
-    padding:14px 34px;border:none;border-radius:50px;cursor:pointer;
-    font-size:1rem;font-weight:bold;color:#fff;
-    background:linear-gradient(45deg,#ff0080,#6a11cb);
-    box-shadow:0 0 20px rgba(255,0,128,.6);
-    animation:pulse 2s infinite;
-  }
-  .btn::after{
-    content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;
-    background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);
-    animation:shine 3s infinite;
-  }
-  @keyframes shine{to{left:150%}}
-  @keyframes pulse{50%{transform:scale(1.06)}}
+.piece{position:fixed;top:-20px;width:10px;height:14px;z-index:5;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.8}}
 </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>Welcome 👋</h1>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<canvas id="bg"></canvas>
+
+<div class="card" id="card">
+  <div class="badge" id="greet">Hello 👋</div>
+  <h1>Welcome</h1>
+  <div class="sub">Main Supratik hoon</div>
   <div class="typing"><span id="text"></span></div>
-  <button class="btn" onclick="hello()">Get Started</button>
+  <button class="btn" onclick="party()">Get Started 🚀</button>
 </div>
 
 <script>
-  // Floating bubbles
-  for(let i=0;i<25;i++){
-    const b=document.createElement("div");
-    b.className="bubble";
-    const s=Math.random()*50+10;
-    b.style.width=b.style.height=s+"px";
-    b.style.left=Math.random()*100+"%";
-    b.style.animationDuration=(Math.random()*10+6)+"s";
-    b.style.animationDelay=(Math.random()*8)+"s";
-    document.body.appendChild(b);
-  }
+// Greeting by time
+const h=new Date().getHours();
+document.getElementById("greet").textContent=
+  (h<12?"Good Morning ☀️":h<17?"Good Afternoon 🌤️":h<21?"Good Evening 🌇":"Good Night 🌙");
 
-  // Typing effect
-  const lines=["Main Supratik hoon","Ye meri pehli website hai","Aapka swagat hai! 🚀"];
-  let l=0,c=0,del=false;
-  const el=document.getElementById("text");
-  function type(){
-    const t=lines[l];
-    el.textContent=t.substring(0,c);
-    if(!del){ c++; if(c>t.length){del=true;return setTimeout(type,1200);} }
-    else{ c--; if(c<0){del=false;c=0;l=(l+1)%lines.length;} }
-    setTimeout(type,del?40:90);
-  }
-  type();
+// Interactive particles
+const cv=document.getElementById("bg"),ctx=cv.getContext("2d");
+let W,H,P=[],m={x:null,y:null};
+function size(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+size();addEventListener("resize",size);
+for(let i=0;i<70;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+  vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,r:Math.random()*2+1});
+function move(e){const t=e.touches?e.touches[0]:e;m.x=t.clientX;m.y=t.clientY}
+addEventListener("mousemove",move);addEventListener("touchmove",move);
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  P.forEach((p,i)=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);
+    ctx.fillStyle="rgba(255,255,255,.8)";ctx.fill();
+    for(let j=i+1;j<P.length;j++){
+      const q=P[j],d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<110){
+        ctx.strokeStyle="rgba(167,139,250,"+(1-d/110)*.5+")";
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();
+      }
+    }
+    if(m.x!==null){
+      const d=Math.hypot(p.x-m.x,p.y-m.y);
+      if(d<140){
+        ctx.strokeStyle="rgba(0,229,255,"+(1-d/140)*.8+")";
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(m.x,m.y);ctx.stroke();
+        p.x+=(p.x-m.x)*.01;p.y+=(p.y-m.y)*.01;
+      }
+    }
+  });
+  requestAnimationFrame(draw);
+}
+draw();
 
-  function hello(){ alert("Welcome to my website! 🎉"); }
+// 3D tilt card
+const card=document.getElementById("card");
+function tilt(e){
+  const t=e.touches?e.touches[0]:e;
+  const x=(t.clientX/innerWidth-.5)*14,y=(t.clientY/innerHeight-.5)*-14;
+  card.style.transform="perspective(700px) rotateY("+x+"deg) rotateX("+y+"deg)";
+}
+addEventListener("mousemove",tilt);addEventListener("touchmove",tilt);
+
+// Typing effect
+const lines=["Ye meri pehli website hai","Yahan se meri journey shuru hoti hai","Aapka swagat hai! 🎉"];
+let l=0,c=0,del=false;const el=document.getElementById("text");
+function type(){
+  const t=lines[l];el.textContent=t.substring(0,c);
+  if(!del){c++;if(c>t.length){del=true;return setTimeout(type,1400)}}
+  else{c--;if(c<0){del=false;c=0;l=(l+1)%lines.length}}
+  setTimeout(type,del?35:80);
+}
+type();
+
+// Confetti
+function party(){
+  const cols=["#ff0080","#00e5ff","#a78bfa","#ffd700","#4ade80"];
+  for(let i=0;i<80;i++){
+    const d=document.createElement("div");d.className="piece";
+    d.style.left=Math.random()*100+"vw";
+    d.style.background=cols[Math.floor(Math.random()*cols.length)];
+    d.style.animationDuration=(Math.random()*2+2)+"s";
+    d.style.animationDelay=Math.random()*.6+"s";
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),4500);
+  }
+}
 </script>
 </body>
 </html>
